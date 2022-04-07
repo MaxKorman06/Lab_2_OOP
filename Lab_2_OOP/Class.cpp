@@ -1,5 +1,13 @@
 #include "Header.h"
 
+ANIMAL::Node* ANIMAL::head = nullptr;
+
+ANIMAL::Node::Node(ANIMAL* data = nullptr, Node* pNext = nullptr)
+{
+	this->pNext = pNext;
+	this->data = data;
+}
+
 ANIMAL::ANIMAL()
 {
 	name = "NONE";
@@ -22,20 +30,78 @@ ANIMAL::~ANIMAL()
 {
 }
 
-void ANIMAL::SetName(string value_name)
+void ANIMAL::SetName(string name)
 {
-	name = value_name;
+	this->name = name;
 }
 
-void ANIMAL::SetMetabolism(string value_metabolism)
+void ANIMAL::SetMetabolism(string metabolism)
 {
-	metabolism = value_metabolism;
+	this->metabolism = metabolism;
 }
 
 void ANIMAL::Set(string value_name, string value_metabolism)
 {
 	SetName(value_name);
 	SetMetabolism(value_metabolism);
+}
+
+void ANIMAL::add_h(ANIMAL* data)
+{
+	if (head == nullptr)
+	{
+		head = new Node(data);
+	}
+	else
+	{
+		Node* current = head;
+		while (current->pNext!=nullptr)
+		{
+			current = current->pNext;
+		}
+		current->pNext = new Node(data);
+	}
+}
+
+void ANIMAL::add(ANIMAL* data)
+{
+	add_h(data);
+}
+
+void ANIMAL::Show()
+{
+	if (head == nullptr)
+	{
+		cout << "В списку відсутні елементи!!!" << '\n';
+	}
+	else
+	{
+		Node* temp = head;
+
+		while (head != nullptr)
+		{
+			cout << "Імя: " << head->data->GetName() << '\n';
+			cout << "Обмін речовин: " << head->data->GetMetabolism() << '\n';
+			cout << "Шерсть: " << head->data->GetWool() << '\n';
+			cout << "Копта: " << head->data->GetHooves() << '\n';
+			cout << "Крила: " << head->data->GetWings() << '\n' << '\n';
+
+			head = head->pNext;
+		}
+		head = temp;
+	}
+}
+
+void ANIMAL::Clear()
+{
+	Node* temp = head;
+	
+	while (head != nullptr)
+	{
+		Node* temp = head;
+		head = head->pNext;
+		delete temp;
+	}
 }
 
 string ANIMAL::GetName()
@@ -46,6 +112,21 @@ string ANIMAL::GetName()
 string ANIMAL::GetMetabolism()
 {
 	return string(metabolism);
+}
+
+string ANIMAL::GetWings()
+{
+	return string("NONE");
+}
+
+string ANIMAL::GetHooves()
+{
+	return string("NONE");
+}
+
+string ANIMAL::GetWool()
+{
+	return string("NONE");
 }
 
 MAMMALS::MAMMALS()
@@ -67,9 +148,9 @@ MAMMALS::~MAMMALS()
 {
 }
 
-void MAMMALS::SetWool(string value_wool)
+void MAMMALS::SetWool(string wool)
 {
-	wool = value_wool;
+	this->wool = wool;
 }
 
 void MAMMALS::Set(string value_name, string value_metabolism, string value_wool)
@@ -82,6 +163,12 @@ void MAMMALS::Set(string value_name, string value_metabolism, string value_wool)
 string MAMMALS::GetWool()
 {
 	return string(wool);
+}
+
+void MAMMALS::add(ANIMAL* data)
+{
+	add_h(data);
+
 }
 
 UNGULATES::UNGULATES()
@@ -98,9 +185,9 @@ UNGULATES::~UNGULATES()
 {
 }
 
-void UNGULATES::SetHooves(string value_hooves)
+void UNGULATES::SetHooves(string hooves)
 {
-	hooves = value_hooves;
+	this->hooves = hooves;
 }
 
 void UNGULATES::Set(string value_name, string value_metabolism, string value_wool, string value_hooves)
@@ -114,6 +201,11 @@ void UNGULATES::Set(string value_name, string value_metabolism, string value_woo
 string UNGULATES::GetHooves()
 {
 	return string(hooves);
+}
+
+void UNGULATES::add(ANIMAL* data)
+{
+	add_h(data);
 }
 
 BIRDS::BIRDS()
@@ -130,9 +222,9 @@ BIRDS::~BIRDS()
 {
 }
 
-void BIRDS::SetWinds(string value_wigs)
+void BIRDS::SetWinds(string winds)
 {
-	winds = value_wigs;
+	this->winds = winds;
 }
 
 void BIRDS::Set(string value_name, string value_metabolism, string value_winds)
@@ -145,4 +237,9 @@ void BIRDS::Set(string value_name, string value_metabolism, string value_winds)
 string BIRDS::GetWings()
 {
 	return string(winds);
+}
+
+void BIRDS::add(ANIMAL* data)
+{
+	add_h(data);
 }

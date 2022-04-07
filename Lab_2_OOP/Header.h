@@ -1,28 +1,38 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 const int L_name = 30;
 
-
 class ANIMAL
 {
-protected:
-
-	string name;
-	string metabolism;
-
 public:
 	ANIMAL();
 
+	// Присвоїти назву, метаболізм
 	ANIMAL(string, string);
 
 	ANIMAL(const ANIMAL&);
 
 	~ANIMAL();
 
+	// Отримати назву
+	string GetName();
+
+	// Отримати метоболізм
+	string GetMetabolism();
+
+	// Отримати крила
+	string GetWings();
+
+	// Отримати копита
+	string GetHooves();
+
+	// Отримати шерсть
+	string GetWool();
 	// Присвоїти назву
 	void SetName(string);
 
@@ -32,11 +42,33 @@ public:
 	// Присвоїти назву, метаболізм
 	void Set(string, string);
 
-	// Отримати назву
-	string GetName();
+	// Додати в список (головний код)
+	static void add_h(ANIMAL* data);
 
-	// Отримати метоболізм
-	string GetMetabolism();
+	// Додати в список
+	virtual void add(ANIMAL* data) = 0;
+
+	// Показати список
+	static void Show();
+
+	// Очстити список
+	static void Clear();
+
+	
+
+	class Node
+	{
+	public:
+		ANIMAL* data;
+		Node* pNext;
+
+		Node(ANIMAL* data, Node* pNext);
+	};
+
+protected:
+	string name;
+	string metabolism;
+	static Node* head;
 };
 
 
@@ -48,6 +80,7 @@ protected:
 public:
 	MAMMALS();
 
+	// Присвoїти імя метаболізм шерсть
 	MAMMALS(string, string, string);
 
 	MAMMALS(const MAMMALS&);
@@ -62,6 +95,8 @@ public:
 
 	// Отримати шерсть
 	string GetWool();
+
+	void add(ANIMAL* data) override;
 };
 
 class UNGULATES : public MAMMALS
@@ -72,6 +107,7 @@ protected:
 public:
 	UNGULATES();
 
+	// Присвoїти імя метаболізм шерсть копита
 	UNGULATES(string, string, string, string);
 
 	~UNGULATES();
@@ -84,6 +120,8 @@ public:
 
 	// Отримати копита
 	string GetHooves();
+
+	void add(ANIMAL* data) override;
 };
 
 class BIRDS : public ANIMAL
@@ -94,6 +132,7 @@ protected:
 public:
 	BIRDS();
 
+	// Присвoїти імя метаболізм крила
 	BIRDS(string, string, string);
 
 	~BIRDS();
@@ -106,4 +145,6 @@ public:
 	 
 	// Отримати крила
 	string GetWings();
+
+	void add(ANIMAL* data) override;
 };
