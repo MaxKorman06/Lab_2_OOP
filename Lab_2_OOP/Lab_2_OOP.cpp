@@ -12,7 +12,7 @@ int main()
 	b.add(&b);
 	c.add(&c);
 
-	ANIMAL::Clear();
+	//ANIMAL::Clear();
 	ANIMAL::Show();
 	ANIMAL::Clear();
 
