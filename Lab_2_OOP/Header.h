@@ -26,13 +26,14 @@ public:
 	string GetMetabolism();
 
 	// Отримати крила
-	string GetWings();
+	virtual string GetWings();
 
 	// Отримати копита
-	string GetHooves();
+	virtual string GetHooves();
 
 	// Отримати шерсть
-	string GetWool();
+	virtual string GetWool();
+
 	// Присвоїти назву
 	void SetName(string);
 
@@ -53,8 +54,6 @@ public:
 
 	// Очстити список
 	static void Clear();
-
-	
 
 	class Node
 	{
